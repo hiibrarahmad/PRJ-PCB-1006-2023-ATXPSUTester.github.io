@@ -6,7 +6,7 @@
 
 ### ATX Power Supply Tester / Load Monitor (STM32 Nucleo-32)
 
-**Designed by [Hibrar Ahmad](https://github.com/hiibrarahmad)**
+**Designed by [Ibrar Ahmad](https://github.com/hiibrarahmad)**
 
 [![PCB Version](https://img.shields.io/badge/PCB%20Version-V1.0-00c8ff?style=for-the-badge)](#)
 [![Target MCU](https://img.shields.io/badge/Target-STM32L432KC%20Nucleo--32-22c55e?style=for-the-badge)](#)
@@ -106,7 +106,7 @@ PRJ-PCB-1006-2023-ATXPSUTester.github.io/
 
 **PRJ-PCB-1006-2023-ATXPSUTester**
 
-*ATX Power Supply Tester / Load Monitor · Designed by Hibrar Ahmad*
+*ATX Power Supply Tester / Load Monitor · Designed by Ibrar Ahmad*
 
 © 2026 hiibrarahmad. All Rights Reserved.
 
