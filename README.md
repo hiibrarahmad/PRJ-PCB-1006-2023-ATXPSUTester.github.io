@@ -1,23 +1,23 @@
 <div align="center">
 
-<img src="assets/RMT-TOP.png" width="100%" alt="RMT PCB — Top View"/>
+<img src="assets/ATXPSUTester-TOP.png" width="100%" alt="ATX PSU Tester PCB — Top View"/>
 
-# ⚡ PRJ-PCB-1006-2023-RMT
+# ⚡ PRJ-PCB-1006-2023-ATXPSUTester
 
-### 14-Channel Interface Board for STM32 Nucleo-32
+### ATX Power Supply Tester / Load Monitor (STM32 Nucleo-32)
 
 **Designed by [Hibrar Ahmad](https://github.com/hiibrarahmad)**
 
 [![PCB Version](https://img.shields.io/badge/PCB%20Version-V1.0-00c8ff?style=for-the-badge)](#)
 [![Target MCU](https://img.shields.io/badge/Target-STM32L432KC%20Nucleo--32-22c55e?style=for-the-badge)](#)
-[![Channels](https://img.shields.io/badge/Channels-14-ff6b35?style=for-the-badge)](#)
+[![Function](https://img.shields.io/badge/Function-ATX%20PSU%20Test%20%2F%20Load-ff6b35?style=for-the-badge)](#)
 
-[![Last Commit](https://img.shields.io/github/last-commit/hiibrarahmad/PRJ-PCB-1006-2023-RMT.github.io?style=for-the-badge&color=0891b2&label=Last%20Commit)](../../commits/main)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-22c55e?style=for-the-badge&logo=github)](https://hiibrarahmad.github.io/PRJ-PCB-1006-2023-RMT.github.io/)
+[![Last Commit](https://img.shields.io/github/last-commit/hiibrarahmad/PRJ-PCB-1006-2023-ATXPSUTester.github.io?style=for-the-badge&color=0891b2&label=Last%20Commit)](../../commits/main)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-22c55e?style=for-the-badge&logo=github)](https://hiibrarahmad.github.io/PRJ-PCB-1006-2023-ATXPSUTester.github.io/)
 
 <br/>
 
-[🔬 Interactive PCB View](https://hiibrarahmad.github.io/PRJ-PCB-1006-2023-RMT.github.io/) · [📦 3D Model (STEP)](assets/RMT.step)
+[🔬 Interactive PCB View](https://hiibrarahmad.github.io/PRJ-PCB-1006-2023-ATXPSUTester.github.io/) · [📦 3D Model (STEP)](assets/ATXPSUTester.step)
 
 </div>
 
@@ -26,16 +26,17 @@
 ## 📖 Project Overview
 
 > [!NOTE]
-> This was the designer's **first PCB, originally designed in Altium in early 2024** (internal ECO logs date to February 2024; recalled by the designer as "my first PCB from 2023"). The exact intended end-application isn't fully documented — this overview is reconstructed from the board's own silkscreen text and its real bill of materials, not from memory.
+> The designer's **first PCB, originally designed in Altium in early 2024** (internal ECO logs date to February 2024; recalled as "my first PCB from 2023"). The board's silkscreen reads "RMT project" — **RMT is a company name**, not the project's function, so it's not used as the identifier here. This overview is reconstructed from the real schematic and BOM.
 
-The board's silkscreen reads **"RMT project Version V1.0"** — that's the only explicit project name that exists for it. Based on the actual BOM and layout:
+An **ATX power supply tester / load monitor**, controlled by an STM32 Nucleo-32 (STM32L432KC). The schematic shows the signature ATX signals directly:
 
-- Designed to interface with an **STM32 Nucleo-32 (STM32L432KC)** development board
-- Breaks out **14 channels**, each with a matched 1.07 kΩ resistor, to individual headers (J1–J9, J12–J15)
-- A **24-position, 4.2mm-pitch power connector** (J10) for high-current external wiring
-- A single **AUIRFZ44N power MOSFET** (55V, TO-220) plus an **NPN driver transistor** — a switching output stage
-- A **dual op-amp** (8-pin PDIP) — likely signal conditioning or comparator duty
-- Best read as a **multi-channel driver/interface shield** — most likely for switching or sensing across several external channels (e.g. relay, LED, or sensor-array driving). Flagged here rather than asserted with more confidence than the evidence supports.
+- **`PSON`** (power-supply-on), **`+12VO`**, **`+5VO`**, **`COM`** — standard ATX PSU rail/control signal names
+- A **24-position, 4.2mm-pitch connector** wired to those rails — matches a standard ATX main power connector
+- **Two independent MOSFET switching channels** (AUIRFZ44N, 55V TO-220 + NPN driver each) — for switching/loading rails under test
+- **Two dual-op-amp (LM358P) current-sense amplifier stages** — each a shunt-resistor + gain-resistor-divider circuit, for measuring load current per channel
+- **STM32 Nucleo-32** footprint (CN3/CN4, the Nucleo module's own header rows) — for control and readout
+
+Put together: apply/switch ATX rails, load them via the two MOSFET channels, and measure the resulting current draw via the op-amp sense circuits — a classic PSU bring-up/test rig.
 
 ---
 
@@ -47,20 +48,20 @@ The board's silkscreen reads **"RMT project Version V1.0"** — that's the only 
 
 **🔝 Top Side**
 
-<img src="assets/RMT-TOP.png" width="100%" alt="RMT PCB — Top View"/>
+<img src="assets/ATXPSUTester-TOP.png" width="100%" alt="ATX PSU Tester PCB — Top View"/>
 
 </td>
 <td align="center" width="50%">
 
 **🔻 Bottom Side**
 
-<img src="assets/RMT-BOT.png" width="100%" alt="RMT PCB — Bottom View"/>
+<img src="assets/ATXPSUTester-BOT.png" width="100%" alt="ATX PSU Tester PCB — Bottom View"/>
 
 </td>
 </tr>
 </table>
 
-🔗 **[→ View Interactive PCB Online](https://hiibrarahmad.github.io/PRJ-PCB-1006-2023-RMT.github.io/)**
+🔗 **[→ View Interactive PCB Online](https://hiibrarahmad.github.io/PRJ-PCB-1006-2023-ATXPSUTester.github.io/)**
 
 ---
 
@@ -68,28 +69,26 @@ The board's silkscreen reads **"RMT project Version V1.0"** — that's the only 
 
 | Reference | Part | Function |
 |-----------|------|----------|
-| Power switch | **AUIRFZ44N** (TO-220, 55V) | N-Channel Power MOSFET — switching output stage |
-| Driver | NPN Silicon Transistor (TO-92) | Gate/base drive for the switching stage |
-| Signal conditioning | Dual Operational Amplifier (8-pin PDIP) | Amplification / comparator |
-| R1–R14 | 1.07 kΩ ±1%, 1/4W | 14 matched channel resistors |
-| J10 | 24-position, 4.2mm pitch power connector | High-current external harness |
-| J1–J9, J12–J15 | 2-pin headers | Per-channel I/O |
-| — | STM32 Nucleo-32 (STM32L432KC) | Target MCU board (Arduino-compatible headers) |
+| Power switch ×2 | **AUIRFZ44N** (TO-220, 55V) | N-Channel Power MOSFET — rail load-switching |
+| Driver ×2 | NPN Silicon Transistor (TO-92) | Gate drive for each MOSFET channel |
+| Current sense ×2 | Dual Operational Amplifier, LM358P (8-pin PDIP) | Shunt current-sense amplifier |
+| J10 | 24-position, 4.2mm pitch connector | ATX main power connector (PSON/+12V/+5V/COM/GND) |
+| — | STM32 Nucleo-32 (STM32L432KC) | Control & readout MCU |
 
 ---
 
 ## 📁 Repository Structure
 
 ```
-PRJ-PCB-1006-2023-RMT.github.io/
+PRJ-PCB-1006-2023-ATXPSUTester.github.io/
 │
 ├── assets/
-│   ├── RMT-TOP.png    ← Top view render (PNG)
-│   ├── RMT-BOT.png    ← Bottom view render (PNG)
-│   └── RMT.step        ← Real 3D model (STEP export)
+│   ├── ATXPSUTester-TOP.png    ← Top view render (PNG)
+│   ├── ATXPSUTester-BOT.png    ← Bottom view render (PNG)
+│   └── ATXPSUTester.step        ← Real 3D model (STEP export)
 │
-├── index.html           ← Interactive PCB/BOM viewer
-└── README.md            ← This file
+├── index.html                    ← Interactive PCB/BOM viewer
+└── README.md                     ← This file
 ```
 
 ---
@@ -98,16 +97,16 @@ PRJ-PCB-1006-2023-RMT.github.io/
 
 | Resource | URL |
 |----------|-----|
-| 🌐 Interactive PCB View | [hiibrarahmad.github.io/PRJ-PCB-1006-2023-RMT.github.io](https://hiibrarahmad.github.io/PRJ-PCB-1006-2023-RMT.github.io/) |
+| 🌐 Interactive PCB View | [hiibrarahmad.github.io/PRJ-PCB-1006-2023-ATXPSUTester.github.io](https://hiibrarahmad.github.io/PRJ-PCB-1006-2023-ATXPSUTester.github.io/) |
 | 👤 Designer | [github.com/hiibrarahmad](https://github.com/hiibrarahmad) |
 
 ---
 
 <div align="center">
 
-**PRJ-PCB-1006-2023-RMT**
+**PRJ-PCB-1006-2023-ATXPSUTester**
 
-*14-Channel STM32 Nucleo-32 Interface Board · Designed by Hibrar Ahmad*
+*ATX Power Supply Tester / Load Monitor · Designed by Hibrar Ahmad*
 
 © 2026 hiibrarahmad. All Rights Reserved.
 
